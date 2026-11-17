@@ -1,0 +1,10 @@
+version: 2
+ 
+sources:
+  - name: britmart_raw
+    schema: raw
+    meta:
+      external_location: "raw_data/{name}.csv"
+    tables:
+      - name: orders
+      - name: customers

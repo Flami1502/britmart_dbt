@@ -1,0 +1,52 @@
+version: 2
+ 
+models:
+  - name: dim_customer
+    columns:
+      - name: customer_id
+        data_tests:
+          - not_null
+          - unique
+ 
+      - name: customer_name
+        data_tests:
+          - not_null
+ 
+      - name: city
+        data_tests:
+          - accepted_values:
+              values:
+                - LONDON
+                - MANCHESTER
+                - BRISTOL
+                - LEEDS
+
+  - name: fct_daily_sales
+    description: >
+      Daily completed sales by date and city.
+ 
+    columns:
+      - name: order_date
+        description: Date of the sales activity.
+        data_test:
+          - not_null
+
+      - name: city
+        description: BritMart city used for the sales grouping.
+        data_test:
+          - not_null
+
+      - name: order_count
+        data_test:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: false
+
+      - name: revenue_gbp
+        description: Total completed revenue in GBP.
+        data_test:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: false
